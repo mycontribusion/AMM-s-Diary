@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Medicine</title><link rel="shortcut icon" type="image/png" href="../images/amms.png" />
+    <style>
+        body {
+            background-color: rgba(201,231,202,255);
+           color: rgba(64,112,91,255);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1><a href="../index.html"><img src="../images/amms.png" style="max-height: 30px; max-width: 30px; /"></a></h1>
+
+    <h2>Estimate Your Weight Based on Age</h2>
+    <label for="age">Enter Age:</label>
+    <input type="number" id="age" min="1" placeholder="Enter age in years">
+    <button onclick="calculateWeight()">Estimate Weight</button>
+    <p id="result"></p>
+
+    <script>
+        function estimateWeight(age) {
+            if (age >= 1 && age <= 5) {
+                return 2 * age + 8;
+            } else if (age >= 6 && age <= 12) {
+                return 3 * age + 7;
+            } else {
+                return "Estimation not available for this age range.";
+            }
+        }
+
+        function calculateWeight() {
+            let age = document.getElementById("age").value;
+            let result = estimateWeight(parseInt(age));
+            document.getElementById("result").innerText = "Estimated Weight: " + result + " kg";
+        }
+    </script>
+</body>
+</html>
