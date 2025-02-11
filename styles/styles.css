@@ -21,7 +21,6 @@ text-align: left;
 ul.dropdown li a {
 display: block;
 padding: 8px 8px;
-color: rgba(64,112,91,255);
 text-decoration: none;
 }
 
@@ -45,4 +44,8 @@ display: block; /* Display the dropdown */
 
 .text-area {
 padding: 10px;
+}
+
+a {
+    color: rgba(64,112,91,255);
 }
