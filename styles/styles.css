@@ -49,3 +49,8 @@ padding: 10px;
 a {
     color: rgba(64,112,91,255);
 }
+input, button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
