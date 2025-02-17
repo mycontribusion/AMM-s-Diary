@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Framingham Heart Failure Criteria Calculator</title><link rel="shortcut icon" type="image/png" href="../images/amms.png" />
+    <link rel="stylesheet" type="text/css" href="../styles/styles.css">
+    <script type="text/javascript" src="../scripts/script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1><a href="../index.html"><img src="../images/amms.png" style="max-height: 30px; max-width: 30px; /"></a></h1>
+
+    <h2>Framingham Heart Failure Criteria Calculator</h2>
+    <p>Select the symptoms and conditions present:</p>
+    
+    <h3>Major Criteria</h3>
+    <label><input type="checkbox" id="pnd"> Paroxysmal Nocturnal Dyspnea</label><br>
+    <label><input type="checkbox" id="jvd"> Jugular Venous Distension</label><br>
+    <label><input type="checkbox" id="rales"> Pulmonary Rales</label><br>
+    <label><input type="checkbox" id="cardiomegaly"> Cardiomegaly</label><br>
+    <label><input type="checkbox" id="pulmonaryEdema"> Acute Pulmonary Edema</label><br>
+    <label><input type="checkbox" id="s3"> S3 Gallop</label><br>
+    <label><input type="checkbox" id="venousPressure"> Increased Venous Pressure</label><br>
+    <label><input type="checkbox" id="circulation"> Circulation Time > 25 sec</label><br>
+    <label><input type="checkbox" id="weightLoss"> Weight Loss > 4.5 kg in 5 days (in response to treatment)</label><br>
+    
+    <h3>Minor Criteria</h3>
+    <label><input type="checkbox" id="ankleEdema"> Bilateral Ankle Edema</label><br>
+    <label><input type="checkbox" id="nocturnalCough"> Nocturnal Cough</label><br>
+    <label><input type="checkbox" id="dyspnea"> Dyspnea on Exertion</label><br>
+    <label><input type="checkbox" id="hepatomegaly"> Hepatomegaly</label><br>
+    <label><input type="checkbox" id="pleuralEffusion"> Pleural Effusion</label><br>
+    <label><input type="checkbox" id="tachycardia"> Heart Rate > 120 bpm</label><br>
+    
+    <button onclick="calculateHeartFailure()">Check Heart Failure</button>
+    <p id="result"></p>
+
+
+    <br><br><br><br><br><br>
+</body>
+</html>

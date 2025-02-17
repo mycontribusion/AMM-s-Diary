@@ -147,3 +147,24 @@ function convertGlucose() {
     
     document.getElementById("result").innerText = `Converted Value: ${convertedValue.toFixed(2)} ${convertedUnit} ${category}`;
 }
+
+function calculateHeartFailure() {
+    let majorCriteria = [
+        "pnd", "jvd", "rales", "cardiomegaly", "pulmonaryEdema", "s3", "venousPressure", "circulation", "weightLoss"
+    ];
+    let minorCriteria = [
+        "ankleEdema", "nocturnalCough", "dyspnea", "hepatomegaly", "pleuralEffusion", "tachycardia"
+    ];
+    
+    let majorCount = majorCriteria.filter(id => document.getElementById(id).checked).length;
+    let minorCount = minorCriteria.filter(id => document.getElementById(id).checked).length;
+    
+    let diagnosis = "No heart failure";
+    if (majorCount >= 2) {
+        diagnosis = "Heart Failure Present";
+    } else if (majorCount === 1 && minorCount >= 2) {
+        diagnosis = "Possible Heart Failure";
+    }
+    
+    document.getElementById("result").innerText = `Diagnosis: ${diagnosis}`;
+}
