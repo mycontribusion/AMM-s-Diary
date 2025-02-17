@@ -1,34 +1,37 @@
 
-function estimateWeight(age) {
-    if (age >= 0 && age < 1) {
-        // Convert age from years to months for infants
-        let ageInMonths = age * 12;
-        return (ageInMonths + 9) / 2;
-    } else if (age >= 1 && age <= 5) {
-        return 2 * age + 8;
-    } else if (age >= 6 && age <= 12) {
-        return 3 * age + 7;
-    } else if (age >= 13 && age <= 18) {
-        return 3.5 * age + 5;
-    } else {
-        return null; // Estimation not available for this age range
+function estimateWeight(age, unit) {
+    let weight;
+    if (unit === "days") {
+        weight = (age * 0.02) + 3; // Approximation for neonates
+    } else if (unit === "months") {
+        weight = (age * 0.5) + 4; // Approximation for infants
+    } else if (unit === "years") {
+        if (age >= 1 && age <= 5) {
+            weight = (2 * age) + 8;
+        } else if (age >= 6 && age <= 12) {
+            weight = (3 * age) + 7;
+        } else if (age >= 13 && age <= 18) {
+            weight = (3.5 * age) + 5;
+        } else {
+            return "Estimation not available for this age range.";
+        }
     }
+    return weight ? `${weight.toFixed(2)} kg` : "Invalid age input.";
 }
 
 function calculateWeight() {
-    let ageInput = document.getElementById("age").value;
-    let age = parseFloat(ageInput);
-    if (isNaN(age) || age < 0 || age > 18) {
-        document.getElementById("result").innerText = "Please enter a valid age between 0 and 18 years.";
+    let age = parseFloat(document.getElementById("age").value);
+    let unit = document.getElementById("ageUnit").value;
+    
+    if (isNaN(age) || age <= 0) {
+        document.getElementById("result").innerText = "Please enter a valid age.";
         return;
     }
-    let estimatedWeight = estimateWeight(age);
-    if (estimatedWeight !== null) {
-        document.getElementById("result").innerText = `Estimated Weight: ${estimatedWeight.toFixed(2)} kg`;
-    } else {
-        document.getElementById("result").innerText = "Estimation not available for this age range.";
-    }
+    
+    let result = estimateWeight(age, unit);
+    document.getElementById("result").innerText = "Estimated Weight: " + result;
 }
+
 function calculateMAP() {
     let sbp = parseFloat(document.getElementById("sbp").value);
     let dbp = parseFloat(document.getElementById("dbp").value);
@@ -76,4 +79,71 @@ function calculateBMI() {
     }
     
     document.getElementById("result").innerText = `BMI: ${bmi.toFixed(2)} - ${category}`;
+}
+
+function convertGlucose() {
+    let value = parseFloat(document.getElementById("glucose").value);
+    let unit = document.getElementById("unit").value;
+    let type = document.getElementById("type").value;
+    
+    if (isNaN(value) || value <= 0) {
+        document.getElementById("result").innerText = "Please enter a valid glucose level.";
+        return;
+    }
+    
+    let convertedValue = value;
+    let convertedUnit = unit;
+    
+    if (unit === "mmol") {
+        convertedValue = value * 18.0182;
+        convertedUnit = "mg/dL";
+    } else {
+        convertedValue = value / 18.0182;
+        convertedUnit = "mmol/L";
+    }
+    
+    let category = "";
+    if (unit === "mg") {
+        if (type === "fasting") {
+            if (value < 70) {
+                category = "(Low - Hypoglycemia)";
+            } else if (value >= 70 && value < 100) {
+                category = "(Normal)";
+            } else if (value >= 100 && value < 126) {
+                category = "(Impaired Fasting Glucose - Prediabetes)";
+            } else {
+                category = "(Diabetes)";
+            }
+        } else {
+            if (value < 140) {
+                category = "(Normal)";
+            } else if (value >= 140 && value < 200) {
+                category = "(Impaired Glucose Tolerance - Prediabetes)";
+            } else {
+                category = "(Diabetes)";
+            }
+        }
+    } else {
+        if (type === "fasting") {
+            if (value < 3.9) {
+                category = "(Low - Hypoglycemia)";
+            } else if (value >= 3.9 && value < 5.6) {
+                category = "(Normal)";
+            } else if (value >= 5.6 && value < 7.0) {
+                category = "(Impaired Fasting Glucose - Prediabetes)";
+            } else {
+                category = "(Diabetes)";
+            }
+        } else {
+            if (value < 7.8) {
+                category = "(Normal)";
+            } else if (value >= 7.8 && value < 11.1) {
+                category = "(Impaired Glucose Tolerance - Prediabetes)";
+            } else {
+                category = "(Diabetes)";
+            }
+        }
+    }
+    
+    document.getElementById("result").innerText = `Converted Value: ${convertedValue.toFixed(2)} ${convertedUnit} ${category}`;
 }
