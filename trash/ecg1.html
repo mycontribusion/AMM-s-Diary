@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECG Wave Interpretation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20px;
+        }
+        input {
+            margin: 10px;
+            padding: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ECG Wave Interpretation</h1>
+    <p>Enter the values for the waves (in terms of number of squares, duration in seconds, or amplitude in millivolts) to interpret if they are normal or not.</p>
+
+    <form id="ecgForm">
+        <div>
+            <label for="pWave">P Wave Duration (in seconds):</label>
+            <input type="number" id="pWave" step="0.01" min="0" required>
+        </div>
+        <div>
+            <label for="qWave">Q Wave Amplitude (in mV):</label>
+            <input type="number" id="qWave" step="0.01" min="-5" required>
+        </div>
+        <div>
+            <label for="rWave">R Wave Amplitude (in mV):</label>
+            <input type="number" id="rWave" step="0.01" min="-5" required>
+        </div>
+        <div>
+            <label for="sWave">S Wave Amplitude (in mV):</label>
+            <input type="number" id="sWave" step="0.01" min="-5" required>
+        </div>
+        <div>
+            <label for="tWave">T Wave Duration (in seconds):</label>
+            <input type="number" id="tWave" step="0.01" min="0" required>
+        </div>
+        <button type="button" onclick="interpretECG()">Interpret ECG</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function interpretECG() {
+            // Get input values
+            const pWave = parseFloat(document.getElementById("pWave").value);
+            const qWave = parseFloat(document.getElementById("qWave").value);
+            const rWave = parseFloat(document.getElementById("rWave").value);
+            const sWave = parseFloat(document.getElementById("sWave").value);
+            const tWave = parseFloat(document.getElementById("tWave").value);
+
+            let interpretation = "ECG Interpretation:\n\n";
+
+            // P Wave Duration Interpretation (Normal: 0.08 to 0.12 seconds)
+            if (pWave >= 0.08 && pWave <= 0.12) {
+                interpretation += "P Wave Duration: Normal\n";
+            } else {
+                interpretation += "P Wave Duration: Abnormal\n";
+            }
+
+            // Q Wave Amplitude Interpretation (Normal: -0.1 to -0.3 mV)
+            if (qWave >= -0.3 && qWave <= -0.1) {
+                interpretation += "Q Wave Amplitude: Normal\n";
+            } else {
+                interpretation += "Q Wave Amplitude: Abnormal\n";
+            }
+
+            // R Wave Amplitude Interpretation (Normal: 0.5 to 2 mV)
+            if (rWave >= 0.5 && rWave <= 2) {
+                interpretation += "R Wave Amplitude: Normal\n";
+            } else {
+                interpretation += "R Wave Amplitude: Abnormal\n";
+            }
+
+            // S Wave Amplitude Interpretation (Normal: -0.2 to -0.5 mV)
+            if (sWave >= -0.5 && sWave <= -0.2) {
+                interpretation += "S Wave Amplitude: Normal\n";
+            } else {
+                interpretation += "S Wave Amplitude: Abnormal\n";
+            }
+
+            // T Wave Duration Interpretation (Normal: 0.12 to 0.20 seconds)
+            if (tWave >= 0.12 && tWave <= 0.20) {
+                interpretation += "T Wave Duration: Normal\n";
+            } else {
+                interpretation += "T Wave Duration: Abnormal\n";
+            }
+
+            // Display the interpretation result
+            document.getElementById("result").textContent = interpretation;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Framingham Heart Failure Criteria Calculator</title><link rel="shortcut icon" type="image/png" href="../images/amms.png" />
+    <link rel="stylesheet" type="text/css" href="../styles/styles.css">
+    <script type="text/javascript" src="../scripts/script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1><a href="../index.html"><img src="../images/amms.png" style="max-height: 30px; max-width: 30px; /"></a></h1>
+    <h1>ECG Wave Interpretation</h1>
+    <p>Select a wave and enter the measured value to determine if it is normal or abnormal.</p>
+
+    <form id="ecgForm">
+        <div>
+            <label for="waveSelect">Select Wave:</label>
+            <select id="waveSelect" onchange="showMeasurementType()">
+                <option value="pWave">P Wave</option>
+                <option value="qrsWave">QRS Complex</option>
+                <option value="tWave">T Wave</option>
+                <option value="prInterval">PR Interval</option>
+                <option value="stSegment">ST Segment</option>
+                <option value="qtInterval">QT Interval</option>
+            </select>
+        </div>
+        <div>
+            <br>
+            <label for="measurementType">Select Measurement:</label>
+            <select id="measurementType" onchange="displayInputField()">
+                <option value="none">Select</option>
+                <option value="duration">Duration</option>
+                <option value="voltage">Amplitude</option>
+            </select>
+            <br>
+        </div>
+        <br>
+        <div id="valueTypeContainer" style="display:none;">
+            <label for="valueType">Select Unit:</label>
+            <select id="valueType">
+                <option value="none">Select</option>
+            </select>
+        </div>
+        <br>
+        <!-- Input field for the numerical value -->
+        <div id="inputContainer" style="display:none;">
+            <label for="numericalValue">Enter Value:</label>
+            <input type="number" id="numericalValue" step="0.01" min="0" required>
+        </div>
+
+        <button type="button" onclick="interpretECG()">Interpret ECG</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+
+    <br><br><br><br><br><br>
+</body>
+</html>

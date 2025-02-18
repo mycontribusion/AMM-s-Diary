@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECG Wave Interpretation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20px;
+        }
+        input, select {
+            margin: 10px;
+            padding: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ECG Wave Interpretation</h1>
+    <p>Select the wave (P, QRS, T, PR Interval, ST Segment, QT Interval) and the measurement type (Duration or Voltage) to interpret its value.</p>
+
+    <form id="ecgForm">
+        <div>
+            <label for="waveSelect">Select Wave:</label>
+            <select id="waveSelect" onchange="showMeasurementType()">
+                <option value="pWave">P Wave</option>
+                <option value="qrsWave">QRS Complex</option>
+                <option value="tWave">T Wave</option>
+                <option value="prInterval">PR Interval</option>
+                <option value="stSegment">ST Segment</option>
+                <option value="qtInterval">QT Interval</option>
+            </select>
+        </div>
+        <div>
+            <label for="measurementType">Select Measurement:</label>
+            <select id="measurementType" onchange="displayInputField()">
+                <option value="none">Select</option>
+                <option value="duration">Duration</option>
+                <option value="voltage">Voltage</option>
+            </select>
+        </div>
+        <div id="valueTypeContainer" style="display:none;">
+            <label for="valueType">Select Value Type:</label>
+            <select id="valueType" onchange="displayInputField()">
+                <option value="none">Select</option>
+                <option value="seconds">Seconds</option>
+                <option value="smallSquares">Small Squares</option>
+                <option value="largeSquares">Large Squares</option>
+                <option value="millivolts">Millivolts</option>
+            </select>
+        </div>
+        <div id="inputContainer" style="display:none;">
+            <label for="waveValue">Enter Value:</label>
+            <input type="number" id="waveValue" step="0.01" min="0" required>
+        </div>
+        <button type="button" onclick="interpretECG()">Interpret ECG</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function showMeasurementType() {
+            const wave = document.getElementById("waveSelect").value;
+            const measurementTypeDropdown = document.getElementById("measurementType");
+
+            // Show the measurement type dropdown for all waves
+            measurementTypeDropdown.style.display = 'inline-block';
+        }
+
+        function displayInputField() {
+            const measurementType = document.getElementById("measurementType").value;
+            const valueTypeContainer = document.getElementById("valueTypeContainer");
+            const inputContainer = document.getElementById("inputContainer");
+
+            // Show value type dropdown and input field based on the selected measurement type
+            if (measurementType !== 'none') {
+                valueTypeContainer.style.display = 'inline-block';
+            } else {
+                valueTypeContainer.style.display = 'none';
+                inputContainer.style.display = 'none';
+            }
+
+            // Update value type options based on the chosen measurement type (Voltage or Duration)
+            const valueTypeDropdown = document.getElementById("valueType");
+            if (measurementType === 'duration') {
+                valueTypeDropdown.innerHTML = `
+                    <option value="none">Select</option>
+                    <option value="seconds">Seconds</option>
+                    <option value="smallSquares">Small Squares</option>
+                    <option value="largeSquares">Large Squares</option>
+                `;
+            } else if (measurementType === 'voltage') {
+                valueTypeDropdown.innerHTML = `
+                    <option value="none">Select</option>
+                    <option value="smallSquares">Small Squares</option>
+                    <option value="largeSquares">Large Squares</option>
+                    <option value="millivolts">Millivolts</option>
+                `;
+            }
+
+            // Show input container when value type is selected
+            if (valueTypeDropdown.value !== 'none') {
+                inputContainer.style.display = 'block';
+            } else {
+                inputContainer.style.display = 'none';
+            }
+        }
+
+        function interpretECG() {
+            // Get input values
+            const wave = document.getElementById("waveSelect").value;
+            const measurementType = document.getElementById("measurementType").value;
+            const valueType = document.getElementById("valueType").value;
+            const value = parseFloat(document.getElementById("waveValue").value);
+
+            let interpretation = "ECG Interpretation:\n\n";
+            
+            if (measurementType === 'duration') {
+                if (valueType === 'seconds') {
+                    // Duration in seconds
+                    if (wave === 'pWave') {
+                        if (value >= 0.08 && value <= 0.12) {
+                            interpretation += "P Wave Duration: Normal (0.08 to 0.12 seconds)\n";
+                        } else {
+                            interpretation += "P Wave Duration: Abnormal\n";
+                        }
+                    } else if (wave === 'qrsWave') {
+                        if (value >= 0.06 && value <= 0.10) {
+                            interpretation += "QRS Duration: Normal (0.06 to 0.10 seconds)\n";
+                        } else {
+                            interpretation += "QRS Duration: Abnormal\n";
+                        }
+                    } else if (wave === 'tWave') {
+                        if (value >= 0.12 && value <= 0.20) {
+                            interpretation += "T Wave Duration: Normal (0.12 to 0.20 seconds)\n";
+                        } else {
+                            interpretation += "T Wave Duration: Abnormal\n";
+                        }
+                    }
+                } else if (valueType === 'smallSquares') {
+                    // Duration in small squares
+                    const smallBoxInSeconds = 0.04;
+                    if (wave === 'pWave') {
+                        if (value >= 2 && value <= 3) {
+                            interpretation += "P Wave Duration: Normal (2 to 3 small boxes)\n";
+                        } else {
+                            interpretation += "P Wave Duration: Abnormal\n";
+                        }
+                    } else if (wave === 'qrsWave') {
+                        if (value >= 1.5 && value <= 2.5) {
+                            interpretation += "QRS Duration: Normal (1.5 to 2.5 small boxes)\n";
+                        } else {
+                            interpretation += "QRS Duration: Abnormal\n";
+                        }
+                    } else if (wave === 'tWave') {
+                        if (value >= 3 && value <= 5) {
+                            interpretation += "T Wave Duration: Normal (3 to 5 small boxes)\n";
+                        } else {
+                            interpretation += "T Wave Duration: Abnormal\n";
+                        }
+                    }
+                } else if (valueType === 'largeSquares') {
+                    // Duration in large squares
+                    const largeBoxInSeconds = 0.2;
+                    if (wave === 'pWave') {
+                        if (value >= 0.5 && value <= 0.75) {
+                            interpretation += "P Wave Duration: Normal (0.5 to 0.75 large boxes)\n";
+                        } else {
+                            interpretation += "P Wave Duration: Abnormal\n";
+                        }
+                    } else if (wave === 'qrsWave') {
+                        if (value >= 0.25 && value <= 0.5) {
+                            interpretation += "QRS Duration: Normal (0.25 to 0.5 large boxes)\n";
+                        } else {
+                            interpretation += "QRS Duration: Abnormal\n";
+                        }
+                    } else if (wave === 'tWave') {
+                        if (value >= 0.75 && value <= 1.25) {
+                            interpretation += "T Wave Duration: Normal (0.75 to 1.25 large boxes)\n";
+                        } else {
+                            interpretation += "T Wave Duration: Abnormal\n";
+                        }
+                    }
+                }
+            } else if (measurementType === 'voltage') {
+                if (valueType === 'millivolts') {
+                    // Voltage in millivolts
+                    if (wave === 'pWave') {
+                        if (value >= 0.1 && value <= 0.3) {
+                            interpretation += "P Wave Amplitude: Normal (0.1 to 0.3 mV)\n";
+                        } else {
+                            interpretation += "P Wave Amplitude: Abnormal\n";
+                        }
+                    } else if (wave === 'qrsWave') {
+                        if (value >= 0.5 && value <= 2) {
+                            interpretation += "QRS Amplitude: Normal (0.5 to 2 mV)\n";
+                        } else {
+                            interpretation += "QRS Amplitude: Abnormal\n";
+                        }
+                    } else if (wave === 'tWave') {
+                        if (value >= 0.1 && value <= 0.3) {
+                            interpretation += "T Wave Amplitude: Normal (0.1 to 0.3 mV)\n";
+                        } else {
+                            interpretation += "T Wave Amplitude: Abnormal\n";
+                        }
+                    }
+                } else if (valueType === 'smallSquares' || valueType === 'largeSquares') {
+                    // Voltage in small or large squares (for demonstration purposes)
+                    interpretation += "Voltage measurement in small or large squares is not supported for this wave type.\n";
+                }
+            }
+
+            // Display the interpretation result
+            document.getElementById("result").textContent = interpretation;
+        }
+    </script>
+
+</body>
+</html>

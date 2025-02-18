@@ -168,3 +168,133 @@ function calculateHeartFailure() {
     
     document.getElementById("result").innerText = `Diagnosis: ${diagnosis}`;
 }
+
+function calculateGCS() {
+    let eye = parseInt(document.getElementById("eye").value);
+    let verbal = parseInt(document.getElementById("verbal").value);
+    let motor = parseInt(document.getElementById("motor").value);
+    
+    let totalGCS = eye + verbal + motor;
+    let category = "";
+    
+    if (totalGCS >= 13) {
+        category = "Mild Brain Injury";
+    } else if (totalGCS >= 9) {
+        category = "Moderate Brain Injury";
+    } else {
+        category = "Severe Brain Injury";
+    }
+    
+    document.getElementById("result").innerText = `Total GCS Score: ${totalGCS} - ${category}`;
+}
+
+function interpretAxis() {
+    let lead1 = document.getElementById("lead1").value;
+    let leadAvf = document.getElementById("leadAvf").value;
+    
+    let interpretation = "Normal Axis (0° to +90°).";
+    let equiphasicLead = "";
+    
+    if (lead1 === "positive" && leadAvf === "positive") {
+        interpretation = "Normal Axis (0° to +90°).";
+        equiphasicLead = "Lead aVL";
+    } else if (lead1 === "positive" && leadAvf === "negative") {
+        interpretation = "Left Axis Deviation (-30° to -90°).";
+        equiphasicLead = "Lead II";
+    } else if (lead1 === "negative" && leadAvf === "positive") {
+        interpretation = "Right Axis Deviation (+90° to +180°).";
+        equiphasicLead = "Lead III";
+    } else if (lead1 === "negative" && leadAvf === "negative") {
+        interpretation = "Extreme Axis Deviation (-90° to ±180°).";
+        equiphasicLead = "Lead aVR";
+    }
+    
+    document.getElementById("result").innerText = `Interpretation: ${interpretation} \n Equiphasic Lead: ${equiphasicLead}`;
+}
+
+function showMeasurementType() {
+    document.getElementById("measurementType").style.display = 'inline-block';
+}
+
+function displayInputField() {
+    const measurementType = document.getElementById("measurementType").value;
+    const valueTypeDropdown = document.getElementById("valueType");
+    const valueTypeContainer = document.getElementById("valueTypeContainer");
+    const inputContainer = document.getElementById("inputContainer");
+
+    if (measurementType === 'duration') {
+        valueTypeContainer.style.display = 'inline-block';
+        valueTypeDropdown.innerHTML = `
+            <option value="seconds">Seconds</option>
+            <option value="smallSquares">Small Squares</option>
+            <option value="largeSquares">Large Squares</option>
+        `;
+    } else if (measurementType === 'voltage') {
+        valueTypeContainer.style.display = 'inline-block';
+        valueTypeDropdown.innerHTML = `
+            <option value="millivolts">Millivolts</option>
+            <option value="smallSquares">Small Squares</option>
+            <option value="largeSquares">Large Squares</option>
+        `;
+    } else {
+        valueTypeContainer.style.display = 'none';
+    }
+
+    if (measurementType !== 'none') {
+        inputContainer.style.display = 'block';
+    } else {
+        inputContainer.style.display = 'none';
+    }
+}
+
+function interpretECG() {
+    const wave = document.getElementById("waveSelect").value;
+    const measurementType = document.getElementById("measurementType").value;
+    const valueType = document.getElementById("valueType").value;
+    let numericalValue = parseFloat(document.getElementById("numericalValue").value);
+
+    let interpretation = "ECG Interpretation:\n";
+
+    if (isNaN(numericalValue)) {
+        interpretation += "Please enter a valid numerical value.";
+        document.getElementById("result").textContent = interpretation;
+        return;
+    }
+
+    // Convert small and large boxes
+    if (valueType === 'smallSquares') {
+        if (measurementType === 'duration') numericalValue *= 0.04; // Convert small boxes to seconds
+        if (measurementType === 'voltage') numericalValue *= 0.1;  // Convert small boxes to mV
+    }
+    if (valueType === 'largeSquares') {
+        if (measurementType === 'duration') numericalValue *= 0.20; // Convert large boxes to seconds
+        if (measurementType === 'voltage') numericalValue *= 0.5;  // Convert large boxes to mV
+    }
+
+    // Interpretation logic
+    if (measurementType === 'duration') {
+        if (wave === 'pWave') {
+            interpretation += (numericalValue >= 0.08 && numericalValue <= 0.12) ? 
+                "P Wave Duration: Normal (0.08 - 0.12 sec)" : "P Wave Duration: Abnormal";
+        } else if (wave === 'qrsWave') {
+            interpretation += (numericalValue >= 0.06 && numericalValue <= 0.10) ? 
+                "QRS Duration: Normal (0.06 - 0.10 sec)" : "QRS Duration: Abnormal";
+        } else if (wave === 'qtInterval') {
+            interpretation += (numericalValue >= 0.36 && numericalValue <= 0.44) ? 
+                "QT Interval: Normal (0.36 - 0.44 sec)" : "QT Interval: Abnormal";
+        }
+    } else if (measurementType === 'voltage') {
+        if (wave === 'pWave') {
+            interpretation += (numericalValue >= 0.1 && numericalValue <= 0.3) ? 
+                "P Wave Amplitude: Normal (0.1 - 0.3 mV)" : "P Wave Amplitude: Abnormal";
+        } else if (wave === 'qrsWave') {
+            interpretation += (numericalValue >= 0.5 && numericalValue <= 2.0) ? 
+                "QRS Amplitude: Normal (0.5 - 2.0 mV)" : "QRS Amplitude: Abnormal";
+        } else if (wave === 'tWave') {
+            interpretation += (numericalValue >= 0.1 && numericalValue <= 0.3) ? 
+                "T Wave Amplitude: Normal (0.1 - 0.3 mV)" : "T Wave Amplitude: Abnormal";
+        }
+    }
+
+    document.getElementById("result").textContent = interpretation;
+}

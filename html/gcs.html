@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glasgow Coma Scale (GCS) Calculator</title><link rel="shortcut icon" type="image/png" href="../images/amms.png" />
+    <link rel="stylesheet" type="text/css" href="../styles/styles.css">
+    <script type="text/javascript" src="../scripts/script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1><a href="../index.html"><img src="../images/amms.png" style="max-height: 30px; max-width: 30px; /"></a></h1>
+
+    <h2>Glasgow Coma Scale (GCS) Calculator</h2>
+    <label for="eye">Eye Opening Response:</label>
+    <select id="eye">
+        <option value="4">Spontaneous (4)</option>
+        <option value="3">To Speech (3)</option>
+        <option value="2">To Pain (2)</option>
+        <option value="1">None (1)</option>
+    </select>
+    <br>
+    <label for="verbal">Verbal Response:</label>
+    <select id="verbal">
+        <option value="5">Oriented (5)</option>
+        <option value="4">Confused (4)</option>
+        <option value="3">Inappropriate Words (3)</option>
+        <option value="2">Incomprehensible Sounds (2)</option>
+        <option value="1">None (1)</option>
+    </select>
+    <br>
+    <label for="motor">Motor Response:</label>
+    <select id="motor">
+        <option value="6">Obeys Commands (6)</option>
+        <option value="5">Localizes Pain (5)</option>
+        <option value="4">Withdraws from Pain (4)</option>
+        <option value="3">Abnormal Flexion (Decorticate) (3)</option>
+        <option value="2">Abnormal Extension (Decerebrate) (2)</option>
+        <option value="1">None (1)</option>
+    </select>
+    <br>
+    <button onclick="calculateGCS()">Calculate GCS</button>
+    <p id="result"></p>
+
+
+    <br><br><br><br><br><br>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardiac Axis Interpreter</title><link rel="shortcut icon" type="image/png" href="../images/amms.png" />
+    <link rel="stylesheet" type="text/css" href="../styles/styles.css">
+    <script type="text/javascript" src="../scripts/script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1><a href="../index.html"><img src="../images/amms.png" style="max-height: 30px; max-width: 30px; /"></a></h1>
+
+    <h2>Cardiac Axis Interpreter (Grant Method)</h2>
+    
+    <label for="lead1">Lead I QRS Polarity:</label>
+    <select id="lead1">
+        <option value="positive">Positive</option>
+
+        <option value="negative">Negative</option>
+    </select>
+    <br>
+    <br>
+    <label for="leadAvf">Lead aVF QRS Polarity:</label>
+    <select id="leadAvf">
+        <option value="positive">Positive</option>
+        <option value="negative">Negative</option>
+    </select>
+    <br>
+    <button onclick="interpretAxis()">Interpret Axis</button>
+    <p id="result"></p>
+
+    <br><br><br><br><br><br>
+</body>
+</html>

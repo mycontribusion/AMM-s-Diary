@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECG Wave Interpretation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20px;
+        }
+        input, select {
+            margin: 10px;
+            padding: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ECG Wave Interpretation</h1>
+    <p>Select the wave (P, QRS, T) and the measurement type (seconds, small boxes, large boxes, or millivolts) to interpret its value.</p>
+
+    <form id="ecgForm">
+        <div>
+            <label for="waveSelect">Select Wave:</label>
+            <select id="waveSelect">
+                <option value="pWave">P Wave</option>
+                <option value="qrsWave">QRS Complex</option>
+                <option value="tWave">T Wave</option>
+            </select>
+        </div>
+        <div>
+            <label for="unitSelect">Select Unit:</label>
+            <select id="unitSelect">
+                <option value="seconds">Seconds</option>
+                <option value="smallBoxes">Small Boxes</option>
+                <option value="largeBoxes">Large Boxes</option>
+                <option value="millivolts">Millivolts</option>
+            </select>
+        </div>
+        <div>
+            <label for="waveValue">Enter Value:</label>
+            <input type="number" id="waveValue" step="0.01" min="0" required>
+        </div>
+        <button type="button" onclick="interpretECG()">Interpret ECG</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function interpretECG() {
+            // Get input values
+            const wave = document.getElementById("waveSelect").value;
+            const unit = document.getElementById("unitSelect").value;
+            const value = parseFloat(document.getElementById("waveValue").value);
+
+            let interpretation = "ECG Interpretation:\n\n";
+            
+            if (unit === 'seconds') {
+                // Convert small boxes and large boxes to seconds based on the standard ECG paper
+                const smallBoxInSeconds = 0.04; // 1 small box = 0.04 seconds
+                const largeBoxInSeconds = 0.2;  // 1 large box = 0.2 seconds
+                
+                if (wave === 'pWave') {
+                    if (value >= 0.08 && value <= 0.12) {
+                        interpretation += "P Wave Duration: Normal (0.08 to 0.12 seconds)\n";
+                    } else {
+                        interpretation += "P Wave Duration: Abnormal\n";
+                    }
+                } else if (wave === 'qrsWave') {
+                    if (value >= 0.06 && value <= 0.10) {
+                        interpretation += "QRS Duration: Normal (0.06 to 0.10 seconds)\n";
+                    } else {
+                        interpretation += "QRS Duration: Abnormal\n";
+                    }
+                } else if (wave === 'tWave') {
+                    if (value >= 0.12 && value <= 0.20) {
+                        interpretation += "T Wave Duration: Normal (0.12 to 0.20 seconds)\n";
+                    } else {
+                        interpretation += "T Wave Duration: Abnormal\n";
+                    }
+                }
+            } else if (unit === 'smallBoxes' || unit === 'largeBoxes') {
+                const smallBoxInSeconds = 0.04; // 1 small box = 0.04 seconds
+                const largeBoxInSeconds = 0.2;  // 1 large box = 0.2 seconds
+                
+                if (wave === 'pWave') {
+                    if (unit === 'smallBoxes') {
+                        if (value >= 2 && value <= 3) {
+                            interpretation += "P Wave Duration: Normal (2 to 3 small boxes)\n";
+                        } else {
+                            interpretation += "P Wave Duration: Abnormal\n";
+                        }
+                    } else if (unit === 'largeBoxes') {
+                        if (value >= 0.5 && value <= 0.75) {
+                            interpretation += "P Wave Duration: Normal (0.5 to 0.75 large boxes)\n";
+                        } else {
+                            interpretation += "P Wave Duration: Abnormal\n";
+                        }
+                    }
+                } else if (wave === 'qrsWave') {
+                    if (unit === 'smallBoxes') {
+                        if (value >= 1.5 && value <= 2.5) {
+                            interpretation += "QRS Duration: Normal (1.5 to 2.5 small boxes)\n";
+                        } else {
+                            interpretation += "QRS Duration: Abnormal\n";
+                        }
+                    } else if (unit === 'largeBoxes') {
+                        if (value >= 0.25 && value <= 0.5) {
+                            interpretation += "QRS Duration: Normal (0.25 to 0.5 large boxes)\n";
+                        } else {
+                            interpretation += "QRS Duration: Abnormal\n";
+                        }
+                    }
+                } else if (wave === 'tWave') {
+                    if (unit === 'smallBoxes') {
+                        if (value >= 3 && value <= 5) {
+                            interpretation += "T Wave Duration: Normal (3 to 5 small boxes)\n";
+                        } else {
+                            interpretation += "T Wave Duration: Abnormal\n";
+                        }
+                    } else if (unit === 'largeBoxes') {
+                        if (value >= 0.75 && value <= 1.25) {
+                            interpretation += "T Wave Duration: Normal (0.75 to 1.25 large boxes)\n";
+                        } else {
+                            interpretation += "T Wave Duration: Abnormal\n";
+                        }
+                    }
+                }
+            } else if (unit === 'millivolts') {
+                if (wave === 'pWave') {
+                    if (value >= 0.1 && value <= 0.3) {
+                        interpretation += "P Wave Amplitude: Normal (0.1 to 0.3 mV)\n";
+                    } else {
+                        interpretation += "P Wave Amplitude: Abnormal\n";
+                    }
+                } else if (wave === 'qrsWave') {
+                    if (value >= 0.5 && value <= 2) {
+                        interpretation += "QRS Amplitude: Normal (0.5 to 2 mV)\n";
+                    } else {
+                        interpretation += "QRS Amplitude: Abnormal\n";
+                    }
+                } else if (wave === 'tWave') {
+                    if (value >= 0.1 && value <= 0.3) {
+                        interpretation += "T Wave Amplitude: Normal (0.1 to 0.3 mV)\n";
+                    } else {
+                        interpretation += "T Wave Amplitude: Abnormal\n";
+                    }
+                }
+            }
+
+            // Display the interpretation result
+            document.getElementById("result").textContent = interpretation;
+        }
+    </script>
+
+</body>
+</html>
