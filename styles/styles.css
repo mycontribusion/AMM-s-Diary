@@ -2,13 +2,21 @@ body {
     background-color: rgba(201,231,202,255);
     color: rgba(64,112,91,255)
  }
- #islam, #med, #tech, #literature {padding: 1em; border: solid thin; margin: 1em 0;
+ #islam, #med, #tech, #literature, #poetry {padding: 1em; border: solid thin; margin: 1em 0;
      background: rgba(254,254,255,255)}
  
-     ul.dropdown {
+
+
+ul.dropdown {
 padding: 0;
 list-style: none;
 background: rgba(201,231,202,255);
+}
+
+#basmala {
+    font-size: smaller;
+    font-style: italic;
+    font-family: fantasy;
 }
 
 ul.dropdown li {
