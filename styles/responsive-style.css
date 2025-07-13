@@ -1,0 +1,308 @@
+/* Define your original colors as CSS variables for easy management */
+:root {
+    --light-green: rgba(201, 231, 202, 255);
+    --dark-green: rgba(64, 112, 91, 255);
+    --white-ish: rgba(254, 254, 255, 255); /* Original background for boxes */
+    --text-color: var(--dark-green); /* General text color */
+    --link-color: var(--dark-green); /* Link color */
+    --hover-bg: var(--dark-green); /* Hover background for links */
+    --hover-text: var(--white-ish); /* Hover text color */
+    --border-color: rgba(150, 180, 150, 0.5); /* A slightly desaturated green for borders */
+    --shadow-color: rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+}
+
+body {
+    background-color: var(--light-green);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, readable font */
+    line-height: 1.6;
+    margin: 0;
+    padding: 15px; /* Add some padding around the content */
+}
+
+#basmala {
+    font-size: 0.95em;
+    font-style: italic;
+    font-family: 'Georgia', serif; /* A classic, readable italic font */
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--dark-green); /* Use dark green for basmala */
+}
+
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the title */
+    color: var(--dark-green);
+    margin-top: 0;
+    margin-bottom: 35px;
+    font-size: 2.2em; /* Slightly larger title */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle text shadow */
+}
+
+h1 img {
+    margin-right: 12px; /* Space between image and text */
+    border-radius: 50%; /* Circular image */
+    box-shadow: 0 3px 8px var(--shadow-color); /* Subtle shadow for icon */
+}
+
+h2, h3 {
+    color: var(--dark-green);
+    border-bottom: 1px solid var(--border-color); /* Subtle line */
+    padding-bottom: 8px;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth transition for links */
+}
+
+a:hover {
+    color: var(--hover-bg); /* Darker green on hover */
+    text-decoration: underline;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: var(--light-green); /* Navbar background same as body */
+    padding: 10px 0;
+    box-shadow: 0 2px 5px var(--shadow-color); /* Subtle shadow for navbar */
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+ul.dropdown {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex; /* Flexbox for horizontal navigation */
+    justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+ul.dropdown li {
+    display: block;
+    position: relative;
+    line-height: normal;
+    text-align: center;
+    margin: 0 15px; /* Space between main nav items */
+}
+
+/* Ensure navbar links are readable without the <small> tag */
+ul.dropdown li a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--dark-green); /* Dark green for nav links */
+    font-weight: bold;
+    transition: background 0.3s ease, color 0.3s ease;
+    border-radius: 4px; /* Slightly rounded corners for buttons */
+}
+
+ul.dropdown li a:hover {
+    color: var(--hover-text); /* White-ish text on hover */
+    background: var(--hover-bg); /* Dark green background on hover */
+}
+
+ul.dropdown li ul.dropdown {
+    background: var(--white-ish); /* Dropdown background */
+    min-width: 180px;
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 5px 15px var(--shadow-color);
+    border-top: 3px solid var(--dark-green); /* Accent border on top */
+    padding: 10px 0;
+    border-radius: 4px;
+}
+
+ul.dropdown li ul.dropdown li {
+    display: block; /* Stack dropdown items */
+    margin: 0;
+}
+
+ul.dropdown li ul.dropdown li a {
+    padding: 8px 15px;
+    color: var(--dark-green); /* Dark green for dropdown links */
+    text-align: left;
+    font-weight: normal;
+}
+
+ul.dropdown li ul.dropdown li a:hover {
+    background: var(--light-green); /* Light green background on dropdown item hover */
+    color: var(--dark-green);
+}
+
+ul.dropdown li:hover ul.dropdown {
+    display: block;
+}
+
+/* Category Boxes Styling */
+#maj-group {
+    display: grid; /* CSS Grid for responsive layout */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Auto-fitting columns */
+    gap: 25px; /* Spacing between grid items */
+    margin-bottom: 40px;
+}
+
+#islam, #med, #tech, #literature, #poetry {
+    padding: 1.8em; /* More padding for a softer look */
+    border: 1px solid var(--border-color);
+    margin: 0; /* Remove original margins */
+    background: var(--white-ish); /* Original background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px var(--shadow-color); /* Subtle shadow for depth */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+#islam:hover, #med:hover, #tech:hover, #literature:hover, #poetry:hover {
+    transform: translateY(-7px); /* Lift effect on hover */
+    box-shadow: 0 8px 20px var(--shadow-color); /* Enhanced shadow on hover */
+}
+
+#islam a, #med a, #tech a, #literature a, #poetry a {
+    font-size: 1.3em; /* Larger, more prominent text */
+    font-weight: bold;
+    color: var(--dark-green); /* Use dark green for category links */
+    display: block; /* Make the entire box clickable */
+}
+
+/* Recent Posts Styling */
+div > ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 30px;
+}
+
+div > ul li {
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed var(--border-color); /* Dashed line for separation */
+}
+
+div > ul li:last-child {
+    border-bottom: none; /* No border for the last item */
+}
+
+div > ul li a {
+    font-weight: bold;
+    font-size: 1.15em;
+    line-height: 1.4;
+    display: block;
+}
+
+div > ul li small {
+    display: block;
+    color: rgba(90, 90, 90, 0.8); /* A soft grey for descriptions for contrast */
+    margin-top: 6px;
+}
+
+/* Input and Button Styling */
+input, button {
+    margin: 15px 0;
+    padding: 12px 20px;
+    font-size: 1em;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--white-ish);
+    color: var(--dark-green);
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+button {
+    background-color: var(--dark-green); /* Dark green for buttons */
+    color: var(--white-ish); /* White-ish text on buttons */
+    border-color: var(--dark-green);
+}
+
+button:hover {
+    background-color: var(--light-green); /* Light green on button hover */
+    color: var(--dark-green); /* Dark green text on button hover */
+    border-color: var(--dark-green);
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+/* Tablets and larger phones */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 25px;
+    }
+
+    ul.dropdown li {
+        margin: 0 10px; /* Slightly less margin for nav items */
+    }
+
+    #maj-group {
+        gap: 15px; /* Reduce gap between category boxes */
+    }
+
+    #islam, #med, #tech, #literature, #poetry {
+        padding: 1.5em; /* Slightly less padding */
+    }
+
+    #islam a, #med a, #tech a, #literature a, #poetry a {
+        font-size: 1.2em;
+    }
+}
+
+/* Smaller phones */
+@media (max-width: 480px) {
+    body {
+        padding: 8px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+
+    h1 img {
+        max-height: 25px;
+        max-width: 25px;
+        margin-right: 8px;
+    }
+
+    ul.dropdown {
+        flex-direction: column; /* Stack nav items vertically */
+        align-items: center; /* Center stacked items */
+    }
+
+    ul.dropdown li {
+        margin: 5px 0; /* Vertical margin for stacked nav items */
+        width: 90%; /* Make nav items take up more width */
+    }
+
+    ul.dropdown li ul.dropdown {
+        min-width: 150px; /* Adjust dropdown width for small screens */
+    }
+
+    #maj-group {
+        grid-template-columns: 1fr; /* Stack category boxes on very small screens */
+        gap: 20px;
+    }
+
+    #islam a, #med a, #tech a, #literature a, #poetry a {
+        font-size: 1.1em;
+    }
+
+    div > ul li a {
+        font-size: 1em;
+    }
+
+    div > ul li small {
+        font-size: 0.9em;
+    }
+}
