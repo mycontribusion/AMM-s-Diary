@@ -20,7 +20,18 @@ body {
     padding: 0; /* Removed overall body padding, now handled by wrapper */
 }
 
-/* New: Main content wrapper for centering on large screens */
+/* New: Container for the main title and mobile toggle */
+.header-top-bar {
+    display: flex; /* Always flex to control h1 and toggle */
+    justify-content: center; /* Center content on desktop */
+    align-items: center;
+    padding: 15px; /* Padding for the header area */
+    background-color: var(--light-green); /* Ensure header has a background */
+    box-shadow: 0 2px 5px var(--shadow-color); /* Add shadow to header */
+    margin-bottom: 0; /* No bottom margin, navbar will have it */
+}
+
+/* Main content wrapper for centering on large screens */
 .main-content-wrapper {
     max-width: 1200px; /* Max width for your content */
     margin: 0 auto; /* Centers the content horizontally */
@@ -39,10 +50,10 @@ body {
 h1 {
     display: flex;
     align-items: center;
-    justify-content: center; /* Center the title */
+    justify-content: center; /* Centers the image and text within h1 on desktop */
     color: var(--dark-green);
     margin-top: 0;
-    margin-bottom: 35px;
+    margin-bottom: 35px; /* Default margin for h1 when not in header-top-bar flex row */
     font-size: 2.2em; /* Slightly larger title */
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle text shadow */
 }
@@ -72,50 +83,65 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Navbar Styling */
+/* Navbar Styling - Default (Desktop) */
 .navbar {
-    background-color: var(--light-green); /* Navbar background same as body */
+    background-color: var(--light-green);
     padding: 10px 0;
-    box-shadow: 0 2px 5px var(--shadow-color); /* Subtle shadow for navbar */
-    margin-bottom: 30px;
-    text-align: center;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    margin-bottom: 30px; /* Space below the navbar on desktop */
+    display: block; /* Show navbar as a block element on desktop */
+    text-align: center; /* Center the nav links */
 }
 
-ul.dropdown {
+/* Hide the menu toggle button by default (desktop) */
+.menu-toggle {
+    display: none; /* Hidden on desktop */
+    cursor: pointer;
+    font-size: 1.8em;
+    color: var(--dark-green);
+    padding: 5px 10px;
+    border: none;
+    background: transparent;
+    z-index: 1001; /* Ensure it's above other elements */
+}
+
+/* Navigation links container - Default (Desktop) */
+.nav-links {
     padding: 0;
     margin: 0;
     list-style: none;
-    display: flex; /* Flexbox for horizontal navigation */
+    display: flex; /* Display horizontally on desktop */
     justify-content: center;
-    flex-wrap: wrap; /* Allow wrapping on small screens */
+    flex-wrap: wrap;
+    width: auto; /* Allow content to dictate width */
 }
 
-ul.dropdown li {
+.nav-links li {
     display: block;
     position: relative;
     line-height: normal;
     text-align: center;
-    margin: 0 15px; /* Space between main nav items */
+    margin: 0 15px;
 }
 
-/* Ensure navbar links are readable without the <small> tag */
-ul.dropdown li a {
+.nav-links li a {
     display: block;
     padding: 10px 15px;
     text-decoration: none;
-    color: var(--dark-green); /* Dark green for nav links */
+    color: var(--dark-green);
     font-weight: bold;
     transition: background 0.3s ease, color 0.3s ease;
-    border-radius: 4px; /* Slightly rounded corners for buttons */
+    border-radius: 4px;
 }
 
-ul.dropdown li a:hover {
-    color: var(--hover-text); /* White-ish text on hover */
-    background: var(--hover-bg); /* Dark green background on hover */
+ul.dropdown li a:hover { /* Specificity for dropdown hover */
+    color: var(--hover-text);
+    background: var(--hover-bg);
 }
 
-ul.dropdown li ul.dropdown {
-    background: var(--white-ish); /* Dropdown background */
+/* Dropdown menu within the navigation */
+.nav-links li ul.dropdown { /* Target the nested dropdown specifically */
+    background: var(--white-ish);
     min-width: 180px;
     display: none;
     position: absolute;
@@ -123,74 +149,75 @@ ul.dropdown li ul.dropdown {
     left: 50%;
     transform: translateX(-50%);
     box-shadow: 0 5px 15px var(--shadow-color);
-    border-top: 3px solid var(--dark-green); /* Accent border on top */
+    border-top: 3px solid var(--dark-green);
     padding: 10px 0;
     border-radius: 4px;
+    text-align: left; /* Align text left in dropdown */
 }
 
-ul.dropdown li ul.dropdown li {
-    display: block; /* Stack dropdown items */
+.nav-links li ul.dropdown li {
+    display: block;
     margin: 0;
 }
 
-ul.dropdown li ul.dropdown li a {
+.nav-links li ul.dropdown li a {
     padding: 8px 15px;
-    color: var(--dark-green); /* Dark green for dropdown links */
-    text-align: left;
+    color: var(--dark-green);
     font-weight: normal;
 }
 
-ul.dropdown li ul.dropdown li a:hover {
-    background: var(--light-green); /* Light green background on dropdown item hover */
+.nav-links li ul.dropdown li a:hover {
+    background: var(--light-green);
     color: var(--dark-green);
 }
 
-ul.dropdown li:hover ul.dropdown {
+.nav-links li:hover ul.dropdown {
     display: block;
 }
 
+
 /* Category Boxes Styling */
 #maj-group {
-    display: grid; /* CSS Grid for responsive layout */
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Auto-fitting columns */
-    gap: 25px; /* Spacing between grid items */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
     margin-bottom: 40px;
 }
 
 #islam, #med, #tech, #literature, #poetry {
-    padding: 1.8em; /* More padding for a softer look */
+    padding: 1.8em;
     border: 1px solid var(--border-color);
-    margin: 0; /* Remove original margins */
-    background: var(--white-ish); /* Original background color */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 10px var(--shadow-color); /* Subtle shadow for depth */
+    margin: 0;
+    background: var(--white-ish);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-color);
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #islam:hover, #med:hover, #tech:hover, #literature:hover, #poetry:hover {
-    transform: translateY(-7px); /* Lift effect on hover */
-    box-shadow: 0 8px 20px var(--shadow-color); /* Enhanced shadow on hover */
+    transform: translateY(-7px);
+    box-shadow: 0 8px 20px var(--shadow-color);
 }
 
 #islam a, #med a, #tech a, #literature a, #poetry a {
-    font-size: 1.3em; /* Larger, more prominent text */
+    font-size: 1.3em;
     font-weight: bold;
-    color: var(--dark-green); /* Use dark green for category links */
-    display: block; /* Make the entire box clickable */
+    color: var(--dark-green);
+    display: block;
 }
 
 /* Recent Posts Styling */
 .recent-section {
     padding: 20px;
-    background-color: var(--white-ish); /* Background for the entire recent section */
+    background-color: var(--white-ish);
     border-radius: 8px;
     box-shadow: 0 4px 10px var(--shadow-color);
     margin-bottom: 40px;
 }
 
 .recent-section h2 {
-    margin-top: 0; /* Reset top margin for h2 inside the section */
+    margin-top: 0;
     margin-bottom: 25px;
     text-align: center;
     font-size: 2em;
@@ -200,50 +227,50 @@ ul.dropdown li:hover ul.dropdown {
 }
 
 .recent-category-list {
-    margin-bottom: 30px; /* Space between category lists */
+    margin-bottom: 30px;
 }
 
 .recent-category-list h3 {
-    margin-top: 0; /* Reset top margin for h3 */
+    margin-top: 0;
     margin-bottom: 15px;
     font-size: 1.5em;
     color: var(--dark-green);
-    border-bottom: 1px dashed var(--border-color); /* Lighter dashed border for category titles */
+    border-bottom: 1px dashed var(--border-color);
     padding-bottom: 5px;
 }
 
 .recent-category-list ul {
     list-style-type: none;
     padding-left: 0;
-    display: grid; /* Use grid for recent posts within a category */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns for posts */
-    gap: 20px; /* Space between post cards */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
 }
 
 .recent-category-list ul li {
-    background-color: var(--light-green); /* Light green background for each post card */
+    background-color: var(--light-green);
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow for post cards */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: flex; /* Use flex for content alignment */
+    display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Push small text to bottom */
-    height: 100%; /* Ensure cards are same height in a row */
+    justify-content: space-between;
+    height: 100%;
 }
 
 .recent-category-list ul li:hover {
-    transform: translateY(-5px); /* Lift effect on hover */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Enhanced shadow on hover */
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .recent-category-list ul li a {
     font-weight: bold;
     font-size: 1.1em;
     line-height: 1.3;
-    color: var(--dark-green); /* Dark green for post titles */
-    margin-bottom: 8px; /* Space between title and description */
-    display: block; /* Make link block for full click area */
+    color: var(--dark-green);
+    margin-bottom: 8px;
+    display: block;
 }
 
 .recent-category-list ul li a:hover {
@@ -252,9 +279,9 @@ ul.dropdown li:hover ul.dropdown {
 
 .recent-category-list ul li small {
     display: block;
-    color: rgba(64, 112, 91, 0.7); /* Slightly lighter dark green for description */
+    color: rgba(64, 112, 91, 0.7);
     font-size: 0.9em;
-    margin-top: auto; /* Pushes description to the bottom if content varies */
+    margin-top: auto;
 }
 
 /* Input and Button Styling */
@@ -271,89 +298,152 @@ input, button {
 }
 
 button {
-    background-color: var(--dark-green); /* Dark green for buttons */
-    color: var(--white-ish); /* White-ish text on buttons */
+    background-color: var(--dark-green);
+    color: var(--white-ish);
     border-color: var(--dark-green);
 }
 
 button:hover {
-    background-color: var(--light-green); /* Light green on button hover */
-    color: var(--dark-green); /* Dark green text on button hover */
+    background-color: var(--light-green);
+    color: var(--dark-green);
     border-color: var(--dark-green);
 }
 
 /* --- Footer Styling --- */
 footer {
-    background-color: var(--dark-green); /* Use dark green for footer background */
-    color: var(--white-ish); /* White-ish text for contrast */
+    background-color: var(--dark-green);
+    color: var(--white-ish);
     text-align: center;
     padding: 30px 20px;
-    margin-top: 50px; /* Space above the footer */
-    box-shadow: 0 -2px 8px var(--shadow-color); /* Subtle shadow at the top */
+    margin-top: 50px;
+    box-shadow: 0 -2px 8px var(--shadow-color);
 }
 
 footer h3 {
-    color: var(--white-ish); /* White-ish for footer heading */
-    border-bottom: 1px solid var(--light-green); /* Light green subtle border */
+    color: var(--white-ish);
+    border-bottom: 1px solid var(--light-green);
     padding-bottom: 10px;
     margin-bottom: 20px;
-    display: inline-block; /* Make border only as wide as text */
+    display: inline-block;
 }
 
 .social-links ul {
     padding: 0;
     list-style: none;
-    display: flex; /* Use flexbox for horizontal social icons */
+    display: flex;
     justify-content: center;
-    gap: 25px; /* Space between icons */
+    gap: 25px;
     margin-bottom: 25px;
 }
 
 .social-links li {
-    margin: 0; /* Remove default list margins */
+    margin: 0;
 }
 
 .social-links a {
-    color: var(--white-ish); /* White-ish color for icons */
-    font-size: 1.5em; /* Large enough icons */
+    color: var(--white-ish);
+    font-size: 1.5em;
     transition: color 0.3s ease, transform 0.3s ease;
-    display: flex; /* Flex to align icon and text */
+    display: flex;
     align-items: center;
 }
 
 .social-links a:hover {
-    color: var(--light-green); /* Light green on hover */
-    text-decoration: none; /* Remove underline on hover */
-    transform: translateY(-3px); /* Subtle lift effect */
+    color: var(--light-green);
+    text-decoration: none;
+    transform: translateY(-3px);
 }
 
 .social-links a i {
-    margin-right: 8px; /* Space between icon and text */
-    font-size: 1.2em; /* Slightly larger icon part */
+    margin-right: 8px;
+    font-size: 1.2em;
 }
 
 footer p {
     font-size: 0.9em;
     margin-top: 20px;
-    color: rgba(254, 254, 255, 0.8); /* Slightly dimmed white for copyright */
+    color: rgba(254, 254, 255, 0.8);
 }
 
 /* --- Media Queries for Responsiveness --- */
 
-/* Tablets and larger phones */
+/* Tablets and smaller phones */
 @media (max-width: 768px) {
     /* Adjust wrapper padding for smaller screens */
     .main-content-wrapper {
         padding: 10px;
     }
 
-    h1 {
-        font-size: 1.8em;
-        margin-bottom: 25px;
+    /* Header container for title and toggle */
+    .header-top-bar {
+        position: relative; /* Crucial for absolute positioning of toggle */
+        justify-content: center; /* Center the h1 */
+        padding: 10px 15px; /* Add horizontal padding */
+        margin-bottom: 0; /* Remove margin-bottom from header-top-bar */
     }
 
-    ul.dropdown li {
-        margin: 0 10px; /* Slightly less margin for nav items */
+    h1 {
+        margin-bottom: 0; /* Remove bottom margin when in flex row */
+        font-size: 1.8em;
+        justify-content: center; /* Ensure internal content of h1 is centered */
+        width: 100%; /* Allow h1 to take full width to help centering */
+    }
+
+    /* Show the hamburger icon */
+    .menu-toggle {
+        display: block;
+        position: absolute; /* Position absolutely */
+        right: 15px; /* Align to the right */
+        top: 50%; /* Vertically center */
+        transform: translateY(-50%); /* Adjust for vertical centering */
+    }
+
+    /* Hide the main navigation bar by default */
+    .navbar {
+        display: none; /* Hide the entire navbar container */
+        position: absolute; /* Position it below the header */
+        top: 80px; /* Adjust this value based on your header's height */
+        left: 0;
+        width: 100%;
+        background-color: var(--light-green); /* Background for expanded menu */
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1); /* Add shadow to expanded menu */
+        z-index: 998; /* Ensure it's below the toggle but above content */
+        padding: 10px 0; /* Add padding for menu items */
+        flex-direction: column; /* Stack links vertically when shown */
+        align-items: center; /* Center items in the column */
+        margin-bottom: 0; /* Remove margin-bottom from navbar itself when hidden/expanded */
+    }
+
+    /* When 'is-open' class is present, show the navigation */
+    .navbar.is-open { /* Apply display:flex to the navbar itself */
+        display: flex;
+    }
+
+    /* Style for individual nav items when expanded */
+    .nav-links li {
+        width: 100%; /* Full width for each nav item */
+        margin: 0; /* Remove horizontal margin */
+    }
+
+    .nav-links li a {
+        padding: 12px 15px; /* Increase padding for better touch targets */
+        text-align: center; /* Center text in mobile menu */
+    }
+
+    /* Nested dropdowns within the expanded mobile menu */
+    .nav-links li ul.dropdown {
+        position: static; /* Make nested dropdown flow normally */
+        transform: none;
+        box-shadow: none;
+        border-top: none;
+        background-color: transparent; /* Transparent background for nested dropdown */
+        padding: 0;
+        width: 100%; /* Full width for nested dropdown */
+    }
+
+    .nav-links li ul.dropdown li a {
+        padding: 8px 25px; /* Indent nested dropdown items */
+        font-size: 0.9em;
     }
 
     #maj-group {
@@ -382,7 +472,6 @@ footer p {
 
     h1 {
         font-size: 1.5em;
-        margin-bottom: 20px;
     }
 
     h1 img {
@@ -391,18 +480,12 @@ footer p {
         margin-right: 8px;
     }
 
-    ul.dropdown {
-        flex-direction: column; /* Stack nav items vertically */
-        align-items: center; /* Center stacked items */
+    .header-top-bar {
+        padding: 10px 10px;
     }
 
-    ul.dropdown li {
-        margin: 5px 0; /* Vertical margin for stacked nav items */
-        width: 90%; /* Make nav items take up more width */
-    }
-
-    ul.dropdown li ul.dropdown {
-        min-width: 150px; /* Adjust dropdown width for small screens */
+    .menu-toggle {
+        font-size: 1.6em;
     }
 
     #maj-group {
