@@ -174,33 +174,80 @@ ul.dropdown li:hover ul.dropdown {
 }
 
 /* Recent Posts Styling */
-div > ul {
+.recent-section {
+    padding: 20px;
+    background-color: var(--white-ish); /* Background for the entire recent section */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    margin-bottom: 40px;
+}
+
+.recent-section h2 {
+    margin-top: 0; /* Reset top margin for h2 inside the section */
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 2em;
+    color: var(--dark-green);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.recent-category-list {
+    margin-bottom: 30px; /* Space between category lists */
+}
+
+.recent-category-list h3 {
+    margin-top: 0; /* Reset top margin for h3 */
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: var(--dark-green);
+    border-bottom: 1px dashed var(--border-color); /* Lighter dashed border for category titles */
+    padding-bottom: 5px;
+}
+
+.recent-category-list ul {
     list-style-type: none;
     padding-left: 0;
-    margin-bottom: 30px;
+    display: grid; /* Use grid for recent posts within a category */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns for posts */
+    gap: 20px; /* Space between post cards */
 }
 
-div > ul li {
-    margin-bottom: 18px;
-    padding-bottom: 18px;
-    border-bottom: 1px dashed var(--border-color); /* Dashed line for separation */
+.recent-category-list ul li {
+    background-color: var(--light-green); /* Light green background for each post card */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtle shadow for post cards */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex; /* Use flex for content alignment */
+    flex-direction: column;
+    justify-content: space-between; /* Push small text to bottom */
+    height: 100%; /* Ensure cards are same height in a row */
 }
 
-div > ul li:last-child {
-    border-bottom: none; /* No border for the last item */
+.recent-category-list ul li:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Enhanced shadow on hover */
 }
 
-div > ul li a {
+.recent-category-list ul li a {
     font-weight: bold;
-    font-size: 1.15em;
-    line-height: 1.4;
-    display: block;
+    font-size: 1.1em;
+    line-height: 1.3;
+    color: var(--dark-green); /* Dark green for post titles */
+    margin-bottom: 8px; /* Space between title and description */
+    display: block; /* Make link block for full click area */
 }
 
-div > ul li small {
+.recent-category-list ul li a:hover {
+    text-decoration: underline;
+}
+
+.recent-category-list ul li small {
     display: block;
-    color: rgba(90, 90, 90, 0.8); /* A soft grey for descriptions for contrast */
-    margin-top: 6px;
+    color: rgba(64, 112, 91, 0.7); /* Slightly lighter dark green for description */
+    font-size: 0.9em;
+    margin-top: auto; /* Pushes description to the bottom if content varies */
 }
 
 /* Input and Button Styling */
@@ -226,6 +273,62 @@ button:hover {
     background-color: var(--light-green); /* Light green on button hover */
     color: var(--dark-green); /* Dark green text on button hover */
     border-color: var(--dark-green);
+}
+
+/* --- Footer Styling --- */
+footer {
+    background-color: var(--dark-green); /* Use dark green for footer background */
+    color: var(--white-ish); /* White-ish text for contrast */
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px; /* Space above the footer */
+    box-shadow: 0 -2px 8px var(--shadow-color); /* Subtle shadow at the top */
+}
+
+footer h3 {
+    color: var(--white-ish); /* White-ish for footer heading */
+    border-bottom: 1px solid var(--light-green); /* Light green subtle border */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    display: inline-block; /* Make border only as wide as text */
+}
+
+.social-links ul {
+    padding: 0;
+    list-style: none;
+    display: flex; /* Use flexbox for horizontal social icons */
+    justify-content: center;
+    gap: 25px; /* Space between icons */
+    margin-bottom: 25px;
+}
+
+.social-links li {
+    margin: 0; /* Remove default list margins */
+}
+
+.social-links a {
+    color: var(--white-ish); /* White-ish color for icons */
+    font-size: 1.5em; /* Large enough icons */
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex; /* Flex to align icon and text */
+    align-items: center;
+}
+
+.social-links a:hover {
+    color: var(--light-green); /* Light green on hover */
+    text-decoration: none; /* Remove underline on hover */
+    transform: translateY(-3px); /* Subtle lift effect */
+}
+
+.social-links a i {
+    margin-right: 8px; /* Space between icon and text */
+    font-size: 1.2em; /* Slightly larger icon part */
+}
+
+footer p {
+    font-size: 0.9em;
+    margin-top: 20px;
+    color: rgba(254, 254, 255, 0.8); /* Slightly dimmed white for copyright */
 }
 
 /* --- Media Queries for Responsiveness --- */
@@ -255,6 +358,10 @@ button:hover {
 
     #islam a, #med a, #tech a, #literature a, #poetry a {
         font-size: 1.2em;
+    }
+
+    .recent-category-list ul {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust columns for tablets */
     }
 }
 
@@ -304,5 +411,33 @@ button:hover {
 
     div > ul li small {
         font-size: 0.9em;
+    }
+
+    /* Adjustments for responsiveness on footer */
+    footer {
+        padding: 20px 10px;
+    }
+    .social-links ul {
+        flex-direction: column; /* Stack social icons on very small screens */
+        gap: 15px; /* Reduce gap when stacked */
+    }
+    .social-links a {
+        justify-content: center; /* Center icons when stacked */
+    }
+
+    .recent-section {
+        padding: 15px;
+    }
+
+    .recent-section h2 {
+        font-size: 1.6em;
+    }
+
+    .recent-category-list h3 {
+        font-size: 1.2em;
+    }
+
+    .recent-category-list ul {
+        grid-template-columns: 1fr; /* Stack posts on very small screens */
     }
 }
