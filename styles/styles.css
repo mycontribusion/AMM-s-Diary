@@ -17,7 +17,14 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, readable font */
     line-height: 1.6;
     margin: 0;
-    padding: 15px; /* Add some padding around the content */
+    padding: 0; /* Removed overall body padding, now handled by wrapper */
+}
+
+/* New: Main content wrapper for centering on large screens */
+.main-content-wrapper {
+    max-width: 1200px; /* Max width for your content */
+    margin: 0 auto; /* Centers the content horizontally */
+    padding: 15px; /* Add padding inside the wrapper */
 }
 
 #basmala {
@@ -335,7 +342,8 @@ footer p {
 
 /* Tablets and larger phones */
 @media (max-width: 768px) {
-    body {
+    /* Adjust wrapper padding for smaller screens */
+    .main-content-wrapper {
         padding: 10px;
     }
 
@@ -367,7 +375,8 @@ footer p {
 
 /* Smaller phones */
 @media (max-width: 480px) {
-    body {
+    /* Adjust wrapper padding for very small screens */
+    .main-content-wrapper {
         padding: 8px;
     }
 
