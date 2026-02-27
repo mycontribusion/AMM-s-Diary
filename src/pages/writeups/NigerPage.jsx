@@ -1,0 +1,27 @@
+import PostPage from '../../components/PostPage'
+
+const cat = { label: 'Writeups', path: '/writeups', icon: '✍️', accent: '#f97316' }
+
+export default function NigerPage() {
+    return (
+        <PostPage title="Niger, ECOWAS and Nigeria" category={cat}>
+            <p>Niger (pronounced ‘Nijer’) or Republic of the Niger officially, is an African country located on the western part of the continent with Niamey as its capital. Its flag has orange, white and green equal horizontal band, with an orange circle in the center.</p>
+
+            <p>Countries bordering it include Algeria and Libya from the north, Chad from the east, Nigeria from the south, Benin, Burkina Faso, and Mali from the west. It is part of the 16 West African countries and forms part of the boundaries between West Africa and North Africa.</p>
+
+            <p>It’s major religion is Islam and its official language is French. Hausa (the most spoken language in the country, mostly in its southern part) and Djarma are the two major languages. Its people are called Nigeriens (with ‘e’ in place of ‘a’ as in Nigerians, the people of Nigeria). Niger is famous for Uranium, a chemical element used mainly for nuclear weapons and electricity.</p>
+
+            <p>Many Nigerians are in Niger especially from the Hausa community that dominates the northern part of Nigeria. There’s a state in Nigeria with the same spelling but different pronunciation as Niger, and that’s Niger state, the largest Nigerian state by size pronounced as ‘Naija’. Some Nigerian northerners claim not understand, why are Niger and Nigeria separate. But this is easily explained by the fact that France got Niger as its share while England got Nigeria during the colonial period.</p>
+
+            <p>Having this information about Niger and remembering it as a West African country, it’s easier to understand its relationship with ECOWAS (Economic Community of West African States). Therefore Niger is also part of the around 16 ECOWAS countries.</p>
+
+            <p>Before the Niger coup they were two important events that occurred in West Africa, one was Nigeria electing a new president and the other was ECOWAS also electing a new chairman. And it happened that both positions were occupied by the same person, Bola Ahmed Tinubu. Who during his inauguration speech said “We will not accept coup after coup in West Africa again.”</p>
+
+            <p>Then not too long after his speech, a coup occurred, and Mohamed Bazoum who was the president of Niger was overthrown by the military led by general Abdourahamane Tchiani, who was before that the presidential guard commander. Since then Tinubu through ECOWAS has been trying to bring back democracy to Niger in fulfilment of the agreement between the ECOWAS countries to maintain democracy. And that it must be returned even if that’d require military actions.</p>
+
+            <p>However, the situation now is, negotiations are still going on between the two sides. ECOWAS has sent different categories of delegates to Niger, from previous democratic leaders, previous military leaders, cultural leaders, religious leader and so on.</p>
+
+            <p>In the end, we hope and pray that the result that will emerge from this event will be that, which will be best for the people of Niger, the Nigeriens. Amin</p>
+        </PostPage>
+    )
+}
